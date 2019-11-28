@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MY Calculator</title>
+	<style type="text/css">
+		.grid_cont{
+			display:grid;
+			grid-template-columns:auto auto auto auto; 
+			grid-gap: 10px;
+			padding: 20px;
+		}
+		.main{
+			margin:auto auto;
+			width:35vw;
+			height: 60vh;
+			background-color:lightblue;
+		}
+		.grid-item{
+			background-color: rgba(255, 255, 255, 0.8);
+			border: 1px solid rgba(0, 0, 0, 0.8);
+			padding: 20px;
+			font-size: 15px;
+			text-align: center;
+			font-weight: bold;
+		}
+		#input{
+			grid-column: 1 / span 4;
+			font-weight: bold;
+			font-size: 15px;
+		}
+		#heading{
+			color:red;
+			text-align: center;
+
+		}
+		#splus{
+			grid-row: span 2;
+		}
+	</style>
+	<script type="text/javascript">
+		function inp_num(a) {
+			var num=document.getElementById('input');
+			if(fstnum){
+				num.value=a;
+				fstnum=false;
+			}
+			else{
+				num.value+=a;
+			}
+			//if(!fstnum)
+			//num1=num.value;
+		}
+		function op(a,b){
+			var num=document.getElementById('input');	
+			if(num.value==''||num.value.endsWith('.'))return;
+			else if(oper==''){
+				oper=a;
+				num1=Number(num.value);
+			}
+			else{
+				if(oper=='+')
+					num1+=Number(num.value);
+				if(oper=='-')
+			 		num1-=Number(num.value);
+			 	if(oper=='*')
+			 		num1*=Number(num.value);
+			 	if(oper=='/')
+			 		num1/=Number(num.value);
+
+				num.value=num1;
+				//fstnum=true;
+				oper=a;
+			}
+			if(b=='='){
+					num1=0;
+					oper='';
+					fstnum=false;
+				}
+			fstnum=true;
+		}
+		function reset(){
+			var num=document.getElementById('input');
+			num1=0;
+			oper='';
+			fstnum=false;
+			num.value='';
+		}
+		function del(){
+			var num=document.getElementById('input');
+			var de='';
+			var n=num.value;
+
+			for(var i=0;i<n.length-1;i++)
+				de+=n[i];
+			num.value=de;
+		}
+		function sgn(){
+			var num=document.getElementById('input');
+			var n=num.value;
+			if(n[0]!='-')
+				n='-'+n;
+			else
+				n=n.substr(1);
+			num.value=n;
+		}
+		function decimal(){
+			var num=document.getElementById('input');
+			var n=num.value;
+			if(n=='')
+				num.value='0.';
+			else if(n.indexOf('.')==-1) 
+				num.value+='.';
+			else if(op!=''){
+				num.value='0.';
+				fstnum=false;
+			}
+			
+			
+		}
+	</script>
+</head>
+<body>
+	<script type="text/javascript">
+		var num1=0,num2=0,flag=false,fstnum=false,oper='';
+		
+	</script>
+	<h1 id="heading"><u>A simple Calculator</u></h1>
+	<main class="grid_cont main">
+		<input type="text" id="input" readonly></input>
+		<button class="grid-item" onclick="reset()">AC</button>
+		<button class="grid-item" onclick="del()">DEL</button>
+		<button class="grid-item" onclick="sgn()">+/-</button>
+		<button class="grid-item" onclick="op('/')">/</button>
+		<button class="grid-item" onclick="inp_num(7)">7</button>
+		<button class="grid-item" onclick="inp_num(8)">8</button>
+		<button class="grid-item" onclick="inp_num(9)">9</button>
+		<button class="grid-item" onclick="op('*')">X</button>
+		<button class="grid-item" onclick="inp_num(4)">4</button>
+		<button class="grid-item" onclick="inp_num(5)">5</button>
+		<button class="grid-item" onclick="inp_num(6)">6</button>
+		<button class="grid-item" onclick="op('-')">-</button>
+		<button class="grid-item" onclick="inp_num(1)">1</button>
+		<button class="grid-item" onclick="inp_num(2)">2</button>
+		<button class="grid-item" onclick="inp_num(3)">3</button>
+		<button class="grid-item" id="splus" onclick="op('+')">+</button>
+		<button class="grid-item" onclick="decimal()">.</button>
+		<button class="grid-item" onclick="inp_num(0)">0</button>
+		
+		<button class="grid-item" onclick="op(oper,'=')">=</button>
+	</main>
+</body>
+</html>
